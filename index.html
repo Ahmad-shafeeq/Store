@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroTech - AI Digital Products</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --secondary: #8b5cf6;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f1f5f9;
+            --gray: #64748b;
+            --neon: #22d3ee;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--neon), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--neon);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--neon), var(--primary));
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 5rem 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--neon), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.2rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 3px;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .product-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            position: relative;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .product-card:hover::before {
+            opacity: 1;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+        
+        .product-img {
+            height: 200px;
+            width: 100%;
+            background: linear-gradient(135deg, #374151 0%, #4B5563 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-img::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+        
+        .product-content {
+            padding: 1.5rem;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--neon);
+        }
+        
+        .product-desc {
+            color: var(--gray);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+        
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+        }
+        
+        .ai-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 3rem 1.5rem;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(99, 102, 241, 0.3);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon);
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .social-icons a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--neon);
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">NeuroTech</div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">AI Products</a>
+                <a href="#">Solutions</a>
+                <a href="#">Pricing</a>
+                <a href="#">Research</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>AI-Powered Digital Products</h1>
+        <p>Discover cutting-edge AI tools, neural interfaces, and machine learning solutions for the next generation of technology.</p>
+        <a href="#products" class="btn">Explore AI Products</a>
+    </section>
+
+    <section id="products" class="container">
+        <h2 class="section-title">AI Products</h2>
+        
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1534723328310-e82dad3ee43f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Neural UI Kit">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Neural UI Kit</h3>
+                    <p class="product-desc">AI-powered UI components with adaptive interfaces for intelligent applications.</p>
+                    <div class="product-price">$79</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="AI Dashboard">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI Dashboard</h3>
+                    <p class="product-desc">Intelligent dashboard with predictive analytics and machine learning insights.</p>
+                    <div class="product-price">$89</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Deep Learning Pack">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Deep Learning Pack</h3>
+                    <p class="product-desc">Specialized components for neural networks and deep learning applications.</p>
+                    <div class="product-price">$99</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Additional Sections -->
+        <h2 class="section-title">More AI Products</h2>
+        
+        <div class="products-grid">
+            <!-- Product 4 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Predictive Analytics">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Predictive Analytics</h3>
+                    <p class="product-desc">AI-driven forecasting and predictive data modeling components.</p>
+                    <div class="product-price">$85</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 5 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1115&q=80" alt="AI Finance Suite">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI Finance Suite</h3>
+                    <p class="product-desc">Algorithmic trading and financial prediction AI tools.</p>
+                    <div class="product-price">$95</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 6 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1593642532744-d377ab507dc8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80" alt="Neural Networks">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Neural Networks</h3>
+                    <p class="product-desc">Visual programming interface for building neural network architectures.</p>
+                    <div class="product-price">$82</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 7 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="AI E-commerce">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI E-commerce</h3>
+                    <p class="product-desc">Smart product recommendations and customer behavior prediction.</p>
+                    <div class="product-price">$105</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 8 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1611605698335-8b1569810432?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" alt="AI Mobile Assistant">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI Mobile Assistant</h3>
+                    <p class="product-desc">Voice-enabled AI assistant for mobile applications.</p>
+                    <div class="product-price">$92</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 9 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1546054454-aa26e2b734c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80" alt="AI Admin Pro">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI Admin Pro</h3>
+                    <p class="product-desc">Intelligent admin panel with automated task management.</p>
+                    <div class="product-price">$109</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 10 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1581276879432-15e50529f34b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="AI CRM">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI CRM</h3>
+                    <p class="product-desc">Customer relationship management with AI-powered insights.</p>
+                    <div class="product-price">$115</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 11 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Social AI">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Social AI</h3>
+                    <p class="product-desc">AI-powered social media analytics and content generation.</p>
+                    <div class="product-price">$98</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 12 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Healthcare AI">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">Healthcare AI</h3>
+                    <p class="product-desc">Medical diagnosis assistance and patient data analysis tools.</p>
+                    <div class="product-price">$112</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title">AI Technology Solutions</h2>
+        
+        <div class="products-grid">
+            <!-- Product 13 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1543286386-713bdd548da4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="AI Education">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI Education</h3>
+                    <p class="product-desc">Adaptive learning platforms with personalized educational paths.</p>
+                    <div class="product-price">$88</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 14 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1552664688-cf412ec27db2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1147&q=80" alt="AI Real Estate">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI Real Estate</h3>
+                    <p class="product-desc">Property valuation and market trend prediction algorithms.</p>
+                    <div class="product-price">$108</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+            
+            <!-- Product 15 -->
+            <div class="product-card">
+                <div class="ai-badge">AI</div>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="AI Project Management">
+                </div>
+                <div class="product-content">
+                    <h3 class="product-title">AI Project Management</h3>
+                    <p class="product-desc">Predictive project timeline estimation and resource allocation.</p>
+                    <div class="product-price">$122</div>
+                    <a href="#" class="btn">Buy Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h3>NeuroTech</h3>
+        <p>Advanced AI solutions for the next technological revolution</p>
+        
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">AI Products</a>
+            <a href="#">Research</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy</a>
+            <a href="#">Terms</a>
+        </div>
+        
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-medium"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        
+        <p>&copy; 2023 NeuroTech. All rights reserved.</p>
+    </footer>
+</body>
+</html>
